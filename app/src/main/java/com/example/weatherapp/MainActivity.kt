@@ -3,6 +3,7 @@ package com.example.weatherapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.example.weatherapp.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,10 +13,13 @@ import retrofit2.create
 
 //ae1cde4ac69fd588ed126e0e78efe622
 class MainActivity : AppCompatActivity() {
+    private val binding : ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         fetchweatherdata()
     }
 
@@ -31,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                 val responeBody =response.body()
                 if(response.isSuccessful && responeBody!=null){
                     val temprature=responeBody.main.temp.toString()
-                    Log.d("TAG", "onResponse: $temprature")
+                   binding.temp.text="$temprature"
                 }
             }
 
